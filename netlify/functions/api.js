@@ -1,4 +1,4 @@
-import articles from "../../api/articles.js";
+﻿import articles from "../../api/articles.js";
 import categories from "../../api/categories.js";
 import contact from "../../api/contact.js";
 import media from "../../api/media.js";
@@ -24,45 +24,55 @@ const routes = {
 
 function createResponse() {
   let statusCode = 200;
-  let body = "";
   const headers = {};
 
-  return {
+  const response = {
     setHeader(name, value) {
       headers[name] = String(value);
     },
+
     status(code) {
-      statusCode = code;
-      return this;
+      statusCode = Number(code);
+      return response;
     },
+
     json(value) {
-      body = JSON.stringify(value);
-      headers["Content-Type"] = "application/json";
-      return this.end();
+      headers["Content-Type"] = "application/json; charset=utf-8";
+
+      return new Response(JSON.stringify(value), {
+        status: statusCode,
+        headers,
+      });
     },
+
     end(value = "") {
-      body = value;
-      return new Response(body, {
+      return new Response(value, {
         status: statusCode,
         headers,
       });
     },
   };
+
+  return response;
 }
 
 function getRouteName(url) {
   const functionPath = "/.netlify/functions/api/";
-  const index = url.pathname.indexOf(functionPath);
+  const functionIndex = url.pathname.indexOf(functionPath);
 
-  if (index !== -1) {
-    return url.pathname.slice(index + functionPath.length).split("/")[0];
+  if (functionIndex !== -1) {
+    return url.pathname
+      .slice(functionIndex + functionPath.length)
+      .split("/")[0];
   }
 
   const apiPath = "/api/";
   const apiIndex = url.pathname.indexOf(apiPath);
 
   if (apiIndex !== -1) {
-    return url.pathname.slice(apiIndex + apiPath.length).split("/")[0];
+    return url.pathname
+      .slice(apiIndex + apiPath.length)
+      .split("/")[0];
   }
 
   return "";
@@ -81,7 +91,9 @@ export default async function handler(request) {
       }),
       {
         status: 404,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
       }
     );
   }
@@ -116,7 +128,18 @@ export default async function handler(request) {
       return result;
     }
 
-    return result || res.end();
+    return new Response(
+      JSON.stringify({
+        error: "API handler completed without returning a response",
+        route: routeName,
+      }),
+      {
+        status: 500,
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
+      }
+    );
   } catch (error) {
     console.error(`API ${routeName} error:`, error);
 
@@ -126,7 +149,9 @@ export default async function handler(request) {
       }),
       {
         status: 500,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json; charset=utf-8",
+        },
       }
     );
   }
