@@ -1,4 +1,4 @@
-import supabase from './supabase';
+﻿import supabase from './supabase';
 
 async function getToken(): Promise<string | null> {
   const { data: { session } } = await supabase.auth.getSession();
@@ -71,9 +71,25 @@ export const api = {
   },
   upload: async (fileName: string, fileBase64: string, contentType: string) => {
     const token = await getToken();
-    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-    return req('/api/upload', { method: 'POST', headers, body: JSON.stringify({ fileName, fileBase64, contentType }) });
+
+    if (!token) {
+      throw new Error('Your admin session has expired. Please sign in again.');
+    }
+
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
+
+    return req('/api/upload', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        fileName,
+        fileBase64,
+        contentType,
+      }),
+    });
   },
   contact: {
     list: () => req('/api/contact'),
@@ -81,3 +97,4 @@ export const api = {
     remove: (id: number) => authReq('/api/contact', 'DELETE', { id }),
   },
 };
+
