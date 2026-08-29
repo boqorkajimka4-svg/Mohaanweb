@@ -7,13 +7,28 @@ async function getToken(): Promise<string | null> {
 
 async function req(url: string, options?: RequestInit) {
   const res = await fetch(url, options);
-  if (!res.ok) {
-    const body = await res.json().catch(() => ({}));
-    throw new Error(body.error || `Request failed: ${res.status}`);
-  }
-  return res.json();
-}
+  const raw = await res.text();
 
+  let body: any = {};
+
+  if (raw.trim()) {
+    try {
+      body = JSON.parse(raw);
+    } catch {
+      body = { error: raw };
+    }
+  }
+
+  if (!res.ok) {
+    throw new Error(
+      body?.error ||
+      body?.message ||
+      `Request failed: ${res.status}`
+    );
+  }
+
+  return body;
+}
 async function authReq(url: string, method: string, body: unknown) {
   const token = await getToken();
   const headers: Record<string, string> = { 'Content-Type': 'application/json' };
@@ -97,4 +112,5 @@ export const api = {
     remove: (id: number) => authReq('/api/contact', 'DELETE', { id }),
   },
 };
+
 
