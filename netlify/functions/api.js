@@ -24,11 +24,13 @@ const routes = {
 
 function createResponse() {
   let statusCode = 200;
+  let body = "";
   const headers = {};
 
   const response = {
     setHeader(name, value) {
       headers[name] = String(value);
+      return response;
     },
 
     status(code) {
@@ -37,16 +39,18 @@ function createResponse() {
     },
 
     json(value) {
+      body = JSON.stringify(value);
       headers["Content-Type"] = "application/json; charset=utf-8";
-
-      return new Response(JSON.stringify(value), {
-        status: statusCode,
-        headers,
-      });
+      return response;
     },
 
     end(value = "") {
-      return new Response(value, {
+      body = value;
+      return response;
+    },
+
+    toResponse() {
+      return new Response(body, {
         status: statusCode,
         headers,
       });
@@ -124,22 +128,13 @@ export default async function handler(request) {
   try {
     const result = await route(req, res);
 
+    // Handler may return a native Response.
     if (result instanceof Response) {
       return result;
     }
 
-    return new Response(
-      JSON.stringify({
-        error: "API handler completed without returning a response",
-        route: routeName,
-      }),
-      {
-        status: 500,
-        headers: {
-          "Content-Type": "application/json; charset=utf-8",
-        },
-      }
-    );
+    // Handler may return the adapter response.
+    return res.toResponse();
   } catch (error) {
     console.error(`API ${routeName} error:`, error);
 
