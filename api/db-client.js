@@ -15,9 +15,7 @@ if (!supabaseUrl) {
 }
 
 if (!supabaseServiceKey) {
-  throw new Error(
-    'Missing SUPABASE_SERVICE_ROLE_KEY.'
-  );
+  throw new Error('Missing SUPABASE_SERVICE_ROLE_KEY.');
 }
 
 const supabase = createClient(
@@ -27,9 +25,11 @@ const supabase = createClient(
     global: {
       fetch: async (url, options) => {
         const res = await fetch(url, options);
+
         if (!res.ok && res.status >= 500) {
           triggerRestore();
         }
+
         return res;
       },
     },
