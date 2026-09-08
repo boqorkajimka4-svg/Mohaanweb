@@ -1,22 +1,22 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#06080f" />
-    <meta name="description" content="MohaanWeb — a premium digital marketplace for templates, assets and creative resources. Instant downloads, secure checkout." />
+    <meta name="description" content="MohaanWeb â€” a premium digital marketplace for templates, assets and creative resources. Instant downloads, secure checkout." />
     <meta name="keywords" content="digital products, templates, ui kits, ebooks, graphics, MohaanWeb, creative resources" />
     <meta name="author" content="MohaanWeb" />
     <meta name="robots" content="index, follow" />
     <meta property="og:site_name" content="MohaanWeb" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="MohaanWeb — Premium Digital Products" />
+    <meta property="og:title" content="MohaanWeb â€” Premium Digital Products" />
     <meta property="og:description" content="Discover premium digital products, templates and creative resources at MohaanWeb." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="MohaanWeb — Premium Digital Products" />
+    <meta name="twitter:title" content="MohaanWeb â€” Premium Digital Products" />
     <meta name="twitter:description" content="Discover premium digital products, templates and creative resources at MohaanWeb." />
-    <title>MohaanWeb — Premium Digital Products</title>
+    <title>MohaanWeb â€” Premium Digital Products</title>
     <script data-arena-recording="true">(function(){
 "use strict";
 var SK="__arena_rec",RRWEB_CDN="https://cdn.jsdelivr.net/npm/rrweb@2.0.0-alpha.4/dist/rrweb.min.js";
@@ -43,12 +43,13 @@ loadRrweb();
      crossorigin="anonymous"></script>
 <meta name="p:domain_verify" content="952b002ec47394a272939a8832673a94"/>
   <script data-arena-views="true">(function(){var isTop=false;try{isTop=window.self===window.top;}catch(e){}if(!isTop)return;window.__ARENA_META={generationId:"claude-opus-4-8",tournamentId:"05299126-5979-4293-be5f-e7ea72b29c63"};var payload={tournamentId:"05299126-5979-4293-be5f-e7ea72b29c63",modelId:"claude-opus-4-8"};try{var r=document.referrer;if(r){var u=new URL(r);payload.referrerDomain=u.hostname;}}catch(e){}try{var vid=null;try{vid=localStorage.getItem('arena_vid');}catch(e){}if(!vid){vid=typeof crypto!=="undefined"&&crypto.randomUUID?crypto.randomUUID():(Date.now().toString(36)+Math.random().toString(36).slice(2)).slice(0,32);try{localStorage.setItem('arena_vid',vid);}catch(e){}}if(vid)payload.viewerId=vid;}catch(e){}try{fetch("https://www.designarena.ai/api/agon/page-views",{"method":"POST","headers":{"Content-Type":"application/json"},"body":JSON.stringify(payload),"keepalive":true});}catch(e){}})();</script>
+<meta name='impact-site-verification' value='13460326-0555-4d50-ad09-7d6cbdb31f20'>
 </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
       <script data-element-picker>/**
- * Agon Element Picker — injected into the preview iframe.
+ * Agon Element Picker â€” injected into the preview iframe.
  *
  * Two modes, both driven by postMessage from the parent:
  *
@@ -72,15 +73,15 @@ loadRrweb();
 (function () {
   'use strict';
 
-  // Capability markers — bumped whenever the picker gains behavior that older
+  // Capability markers â€” bumped whenever the picker gains behavior that older
   // baked-in copies lack, so visual_picker_inject._refresh_stale_picker knows
   // to re-inline this version.
-  //   arena:link-edit     — editing link / <a> text
-  //   arena:textnode-edit — editing a single text node inside a mixed-content
+  //   arena:link-edit     â€” editing link / <a> text
+  //   arena:textnode-edit â€” editing a single text node inside a mixed-content
   //                         element (e.g. <h1>Text<span>..</span></h1>)
-  //   arena:header-edit   — edit `user-select:none` headers/nav; box-only
+  //   arena:header-edit   â€” edit `user-select:none` headers/nav; box-only
   //                         highlight (no source/tag label)
-  //   arena:multirun-edit — patch the exact text run of a multi-run element
+  //   arena:multirun-edit â€” patch the exact text run of a multi-run element
   //                         (e.g. lines split by <br/>), via runIndex
   // marker: arena:link-edit arena:textnode-edit arena:header-edit arena:multirun-edit
 
@@ -179,7 +180,7 @@ loadRrweb();
   }
 
   // An element is whole-text-editable when it owns at least one non-whitespace
-  // text node and no element children — editing such an element via
+  // text node and no element children â€” editing such an element via
   // contenteditable is safe. Mixed-content elements are handled per-text-node
   // (see resolveEditable / beginEditTextNode) instead.
   function isTextEditable(el) {
@@ -218,9 +219,9 @@ loadRrweb();
   }
 
   // Resolve what a hover/click at (x, y) should edit:
-  //   { kind: 'text', textNode, element }  — one text run inside a mixed element
-  //   { kind: 'element', element }         — a whole pure-text element
-  //   null                                 — nothing editable here
+  //   { kind: 'text', textNode, element }  â€” one text run inside a mixed element
+  //   { kind: 'element', element }         â€” a whole pure-text element
+  //   null                                 â€” nothing editable here
   function resolveEditable(target, x, y) {
     var tn = textNodeAtPoint(x, y);
     if (tn) {
@@ -264,7 +265,7 @@ loadRrweb();
       ? 'rgba(16, 185, 129, 0.08)' : 'rgba(59, 130, 246, 0.08)';
     overlay.style.display = 'block';
 
-    // Edit mode shows just the highlight box — no source/tag label.
+    // Edit mode shows just the highlight box â€” no source/tag label.
     if (!showLabel || !label) {
       if (label) label.style.display = 'none';
       return;
@@ -277,7 +278,7 @@ loadRrweb();
       var parsed = parseSource(src);
       labelText += '  ' + parsed.file + ':' + parsed.line;
     }
-    if (editable) labelText += '  ✎';
+    if (editable) labelText += '  âœŽ';
     label.textContent = labelText;
     label.style.background = editable ? '#065f46' : '#1e40af';
 
@@ -550,7 +551,7 @@ loadRrweb();
     var parent = textNode.parentElement;
     var childIndex = Array.prototype.indexOf.call(parent.childNodes, textNode);
     // Index of this text node among the parent's non-whitespace direct text
-    // runs — lets the server patch the exact run of a multi-run element
+    // runs â€” lets the server patch the exact run of a multi-run element
     // (e.g. <h1>A<br/>B<br/>C</h1>), not just the first.
     var textRunIndex = 0;
     for (var k = 0; k < parent.childNodes.length; k++) {
@@ -588,7 +589,7 @@ loadRrweb();
 
     // Clicks inside the element being edited behave normally (caret moves).
     // When editing link text, still swallow the event so the app's own click
-    // handlers (e.g. router <Link> navigation) don't fire — caret placement is
+    // handlers (e.g. router <Link> navigation) don't fire â€” caret placement is
     // the browser default action and survives stopImmediatePropagation.
     if (activeEdit && (target === activeEdit.element || activeEdit.element.contains(target))) {
       if (activeEdit.anchor) {
@@ -686,7 +687,7 @@ loadRrweb();
   });
 
   // Also support toggling via keyboard for standalone testing:
-  //   Alt+Shift+I — inspect mode, Alt+Shift+E — edit mode
+  //   Alt+Shift+I â€” inspect mode, Alt+Shift+E â€” edit mode
   document.addEventListener('keydown', function (e) {
     if (e.altKey && e.shiftKey && e.key === 'I') {
       inspectEnabled ? disableInspect() : enableInspect();
@@ -706,3 +707,4 @@ loadRrweb();
 </script>
   </body>
 </html>
+
